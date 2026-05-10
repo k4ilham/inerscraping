@@ -41,7 +41,7 @@ Untuk menjalankan program, Anda hanya perlu mengklik dua kali file **`run.bat`**
 ### Tampilan Saat Berjalan (Progress Bar)
 Skrip akan menampilkan progress bar di terminal untuk memantau kemajuan proses scraping.
 
-![Progress Bar Terminal](file:///C:/Users/user01/.gemini/antigravity/brain/265b05b1-c133-4a5f-93ef-4cc14a9a46e2/.tempmediaStorage/media_265b05b1-c133-4a5f-93ef-4cc14a9a46e2_1778417586545.png)
+![Progress Bar Terminal](assets/terminal_progress.png)
 *Gambar 1: Tampilan Progress Bar di CLI.*
 
 ---
@@ -52,7 +52,7 @@ Hasil scraping akan disimpan ke dua tempat:
 2. **Database Utama (`dataset.csv`)**: File gabungan seluruh hasil scraping tanpa ada duplikat judul.
 
 ### Contoh Tampilan di Excel / WPS Office
-![Hasil CSV](file:///C:/Users/user01/.gemini/antigravity/brain/265b05b1-c133-4a5f-93ef-4cc14a9a46e2/.tempmediaStorage/media_265b05b1-c133-4a5f-93ef-4cc14a9a46e2_1778417564858.png)
+![Hasil CSV](assets/csv_output.png)
 *Gambar 2: Data hasil scraping yang sudah memiliki isi lengkap dan tanggal asli.*
 
 ---
