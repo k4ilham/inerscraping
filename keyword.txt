@@ -1,0 +1,10 @@
+'dampak bencana pada UMKM',
+'dampak bencana terhadap UMKM',
+'UMKM terdampak bencana indonesia',
+'kerugian UMKM akibat bencana alam',
+'pemulihan UMKM pasca bencana',
+'bantuan UMKM korban bencana',
+'resiliensi UMKM bencana',
+'ketahanan UMKM terhadap bencana', 
+'adaptasi UMKM pasca bencana',
+'strategi UMKM menghadapi bencana'

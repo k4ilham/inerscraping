@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Scraping Results
+hasil_scrapping_*.csv
+dataset.csv
+test_google.py
+
+# IDEs
+.vscode/
+.idea/
