@@ -13,9 +13,17 @@ Skrip otomatisasi web scraping untuk mengumpulkan berita dari berbagai sumber In
 - **Configurable**: Rentang tahun (2020-2026), kata kunci, dan sumber berita dapat diatur dengan mudah.
 
 ## 🚀 Cara Penggunaan Cepat
+
+### Windows
 1. Masukkan kata kunci di `keyword.txt`.
 2. Klik dua kali file `run.bat`.
-3. Hasil akhir tersedia di `dataset.csv`.
+
+### Linux / macOS
+1. Masukkan kata kunci di `keyword.txt`.
+2. Buka terminal di folder ini.
+3. Jalankan perintah: `bash run.sh`
+
+Hasil akhir tersedia di `dataset.csv`.
 
 ## 📂 Struktur Proyek
 - `scraper.py`: Mesin utama scraping.

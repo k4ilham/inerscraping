@@ -36,8 +36,18 @@ END_YEAR = 2026
 ---
 
 ## 4. Cara Menjalankan Scraper
-Untuk menjalankan program, Anda hanya perlu mengklik dua kali file **`run.bat`**.
 
+### Windows
+Untuk menjalankan program di Windows, Anda hanya perlu mengklik dua kali file **`run.bat`**.
+
+### Linux / macOS
+Untuk menjalankan di sistem operasi Linux atau Mac, ikuti langkah berikut:
+1. Buka aplikasi **Terminal**.
+2. Masuk ke folder proyek ini.
+3. Berikan izin akses (hanya sekali): `chmod +x run.sh`
+4. Jalankan program: `./run.sh` atau `bash run.sh`
+
+---
 ### Tampilan Saat Berjalan (Progress Bar)
 Skrip akan menampilkan progress bar di terminal untuk memantau kemajuan proses scraping.
 
