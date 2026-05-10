@@ -11,14 +11,21 @@ from tqdm import tqdm
 import config
 
 def get_full_content(url):
-    """Mengambil konten berita lengkap menggunakan newspaper3k."""
+    """Mengambil konten berita dan tanggal publikasi asli."""
     try:
         article = Article(url, language='id')
         article.download()
         article.parse()
-        return article.text
+        
+        # Ambil tanggal publikasi asli jika ada
+        if article.publish_date:
+            tanggal = article.publish_date.strftime("%d %B %Y")
+        else:
+            tanggal = datetime.now().strftime("%d %B %Y")
+            
+        return article.text, tanggal
     except:
-        return ""
+        return "", datetime.now().strftime("%d %B %Y")
 
 def scrape_rss(keywords, seen_titles, seen_urls):
     """Mengambil berita dari RSS Feed dan memfilter berdasarkan kata kunci."""
@@ -38,11 +45,11 @@ def scrape_rss(keywords, seen_titles, seen_urls):
                 
                 # Filter kata kunci
                 if any(kw.lower() in title.lower() for kw in keywords):
-                    content = get_full_content(url)
+                    content, tanggal = get_full_content(url)
                     if content:
                         results.append({
                             'judul': title,
-                            'tanggal': entry.published if 'published' in entry else datetime.now().strftime("%d %B %Y"),
+                            'tanggal': tanggal,
                             'isi': content,
                             'sumber': feed.feed.title if 'title' in feed.feed else "RSS",
                             'url': url
@@ -88,11 +95,11 @@ def scrape_detik_search(keyword, seen_titles, seen_urls):
                         continue
                     
                     # Ambil konten
-                    content = get_full_content(url)
+                    content, tanggal = get_full_content(url)
                     if content:
                         results.append({
                             'judul': judul,
-                            'tanggal': datetime.now().strftime("%d %B %Y"),
+                            'tanggal': tanggal,
                             'isi': content,
                             'sumber': 'detik',
                             'url': url
@@ -161,16 +168,23 @@ if __name__ == "__main__":
         pd.DataFrame(all_new_data).to_csv(temp_file, index=False, quoting=csv.QUOTE_ALL)
         
         # Update dataset
-        if os.path.exists(config.DATASET_FILE):
-            existing_df = pd.read_csv(config.DATASET_FILE)
-            final_df = pd.concat([existing_df, pd.DataFrame(all_new_data)], ignore_index=True)
-        else:
-            final_df = pd.DataFrame(all_new_data)
-        
-        final_df.drop_duplicates(subset=['judul'], keep='first', inplace=True)
-        final_df.to_csv(config.DATASET_FILE, index=False, quoting=csv.QUOTE_ALL)
-        
-        print(f"\nSelesai! Berhasil menambah {len(all_new_data)} berita baru.")
-        print(f"Total di dataset.csv: {len(final_df)} berita.")
+        try:
+            if os.path.exists(config.DATASET_FILE):
+                existing_df = pd.read_csv(config.DATASET_FILE)
+                final_df = pd.concat([existing_df, pd.DataFrame(all_new_data)], ignore_index=True)
+            else:
+                final_df = pd.DataFrame(all_new_data)
+            
+            final_df.drop_duplicates(subset=['judul'], keep='first', inplace=True)
+            final_df.to_csv(config.DATASET_FILE, index=False, quoting=csv.QUOTE_ALL)
+            
+            print(f"\nSelesai! Berhasil menambah {len(all_new_data)} berita baru.")
+            print(f"Total di dataset.csv: {len(final_df)} berita.")
+        except PermissionError:
+            print(f"\n[!] ERROR: Gagal menyimpan ke {config.DATASET_FILE}.")
+            print(f"Pastikan file tersebut tidak sedang dibuka di Excel atau WPS Office.")
+            print(f"Data arsip sementara tetap tersimpan di: {temp_file}")
+        except Exception as e:
+            print(f"\n[!] Terjadi kesalahan saat menyimpan dataset: {e}")
     else:
         print("\nTidak ada berita baru yang ditemukan.")
